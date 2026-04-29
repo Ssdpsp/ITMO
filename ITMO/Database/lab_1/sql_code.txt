@@ -1,0 +1,211 @@
+CREATE TABLE Human(
+ID BIGINT PRIMARY KEY,
+Full_name TEXT,
+Birth_day DATE
+);
+CREATE TABLE Populated_area (
+ID BIGINT PRIMARY KEY,
+Name TEXT,
+Type_of_populated_area TEXT,
+Population_size INTEGER
+);
+CREATE TABLE Water_body(
+ID BIGINT PRIMARY KEY,
+Name TEXT,
+Square INTEGER,
+Code_in_the_water_register CHAR(15)
+);
+CREATE TABLE Natural_phenomenon(
+ID BIGINT PRIMARY KEY,
+Date DATE,
+Visibility TEXT,
+Frivolity TEXT,
+Precipitation TEXT
+);
+CREATE TABLE Vessel(
+ID BIGINT PRIMARY KEY,
+Number CHAR(15),
+Name TEXT,
+Flag TEXT,
+Home_port TEXT
+);
+CREATE TABLE Registration_of_vessel_owners(
+ID BIGINT PRIMARY KEY,
+Human1 BIGINT,
+FOREIGN KEY (Human1) REFERENCES Human(ID),
+Vessel1 BIGINT,
+FOREIGN KEY (Vessel1) REFERENCES Vessel(ID),
+Date DATE
+);
+CREATE TABLE Clearance_at_the_port(
+ID BIGINT PRIMARY KEY,
+Vessel1 BIGINT,
+FOREIGN KEY (Vessel1) REFERENCES Vessel(ID),
+Registration_of_vessel_owners1 BIGINT,
+FOREIGN KEY (Registration_of_vessel_owners1) REFERENCES Registration_of_vessel_owners(ID),
+Extract_from_the_register_of_ship TEXT
+);
+CREATE TABLE Incident_on_the_water(
+ID BIGINT PRIMARY KEY,
+Vessel1 BIGINT,
+FOREIGN KEY (Vessel1) REFERENCES Vessel(ID),
+Incident_date DATE,
+Water_body1 BIGINT,
+FOREIGN KEY (Water_body1) REFERENCES Water_body(ID),
+Natural_phenomenon1 BIGINT,
+FOREIGN KEY (Natural_phenomenon1) REFERENCES Natural_phenomenon(ID)
+);
+CREATE TABLE Customs_clearance(
+ID BIGINT PRIMARY KEY,
+Clearance_at_the_port1 BIGINT,
+FOREIGN KEY (Clearance_at_the_port1) REFERENCES Clearance_at_the_port(ID),
+Registration_of_vessel_owners1 BIGINT,
+FOREIGN KEY (Registration_of_vessel_owners1) REFERENCES Registration_of_vessel_owners(ID),
+Import TEXT,
+Duty INTEGER
+);
+CREATE TABLE Marriage(
+ID BIGINT PRIMARY KEY,
+Human1 BIGINT,
+Human2 BIGINT,
+FOREIGN KEY (Human1) REFERENCES Human(ID),
+FOREIGN KEY (Human2) REFERENCES Human(ID),
+Date_of_registration DATE,
+Date_of_divorce DATE
+);
+CREATE TABLE Type_of_relationship(
+ID BIGINT PRIMARY KEY,
+Human1 BIGINT,
+Human2 BIGINT,
+FOREIGN KEY (Human1) REFERENCES Human(ID),
+FOREIGN KEY (Human2) REFERENCES Human(ID),
+Type TEXT
+);
+CREATE TABLE Business (
+ID BIGINT PRIMARY KEY,
+Human1 BIGINT,
+FOREIGN KEY (Human1) REFERENCES Human(ID),
+Type_of_business TEXT,
+Date_of_registration DATE
+);
+CREATE TABLE Private_property (
+ID BIGINT PRIMARY KEY,
+Human BIGINT,
+PopulatedArea BIGINT,
+Name TEXT,
+FOREIGN KEY (Human) REFERENCES Human(ID),
+FOREIGN KEY (PopulatedArea) REFERENCES Populated_area(ID)
+);
+CREATE TABLE Product (
+ID BIGINT PRIMARY KEY,
+Name TEXT,
+Price INTEGER
+);
+CREATE TABLE Income_in_one_day (
+ID BIGINT PRIMARY KEY,
+Business BIGINT,
+Product BIGINT,
+DateOfSale DATE,
+FOREIGN KEY (Business) REFERENCES Business(ID),
+FOREIGN KEY (Product) REFERENCES Product(ID)
+);
+INSERT INTO Human (ID, Full_name, Birth_day)
+SELECT
+i,
+'Person ' i,
+DATE '1980-01-01' + (i * INTERVAL '5 days')
+FROM generate_series(1, 100) AS s(i);
+INSERT INTO Populated_area
+SELECT
+i,
+'Area ' i,
+CASE WHEN i % 2 = 0 THEN 'City' ELSE 'Village' END,
+1000 + i * 100
+FROM generate_series(1, 100) s(i);
+INSERT INTO Water_body
+SELECT
+i,
+'Water ' i,
+500 + i,
+LPAD(i::TEXT, 15, '0')
+FROM generate_series(1, 100) s(i);
+INSERT INTO Natural_phenomenon
+SELECT
+i,
+CURRENT_DATE - (i ' days')::INTERVAL,
+CASE WHEN i % 3 = 0 THEN 'Low' ELSE 'High' END,
+'Weak',
+CASE WHEN i % 2 = 0 THEN 'Rain' ELSE 'None' END
+FROM generate_series(1, 100) s(i);
+INSERT INTO Vessel
+SELECT
+i,
+'VES' LPAD(i::TEXT, 5, '0'),
+'Ship ' i,
+'Flag ' (i % 10),
+'Port ' (i % 5)
+FROM generate_series(1, 100) s(i);
+INSERT INTO Registration_of_vessel_owners
+SELECT
+i,
+i,
+i,
+CURRENT_DATE - (i ' days')::INTERVAL
+FROM generate_series(1, 100) s(i);
+INSERT INTO Incident_on_the_water
+SELECT
+i,
+(i % 100) + 1,
+CURRENT_DATE - (i ' days')::INTERVAL,
+(i % 100) + 1,
+(i % 100) + 1
+FROM generate_series(1, 100) s(i);
+INSERT INTO Marriage
+SELECT
+i,
+i,
+((i + 1) % 100) + 1,
+CURRENT_DATE - (i ' days')::INTERVAL,
+NULL
+FROM generate_series(1, 100) s(i);
+INSERT INTO Type_of_relationship
+SELECT
+i,
+i,
+((i + 2) % 100) + 1,
+CASE WHEN i % 2 = 0 THEN 'Friend' ELSE 'Colleague' END
+FROM generate_series(1, 100) s(i);
+INSERT INTO Business
+SELECT
+i,
+i,
+CASE WHEN i % 2 = 0 THEN 'Retail' ELSE 'Service' END,
+CURRENT_DATE - (i ' days')::INTERVAL
+FROM generate_series(1, 100) s(i);
+INSERT INTO Private_property
+SELECT
+i,
+i,
+(i % 100) + 1,
+'Property ' i
+FROM generate_series(1, 100) s(i);
+INSERT INTO Product
+SELECT
+i,
+'Product ' i,
+100 + i * 10
+FROM generate_series(1, 100) s(i);
+INSERT INTO Income_in_one_day
+SELECT
+i,
+(i % 100) + 1,
+(i % 100) + 1,
+CURRENT_DATE - (i ' days')::INTERVAL
+FROM generate_series(1, 100) s(i);
+INSERT INTO Clearance_at_the_port
+SELECT
+i,
+(i % 100) + 1,
+(i % 100) + 1,
+'Extract #' i
+FROM generate_series(1, 100) s(i);
