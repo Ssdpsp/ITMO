@@ -1,0 +1,28 @@
+июн. 03, 2026 2:17:32 PM lab5.server.ServerMain main
+INFO: Запуск сервера. Файл коллекции: C:\Users\александра\Desktop\JavaLab6\data.csv
+июн. 03, 2026 2:17:32 PM lab5.server.ServerMain main
+INFO: Загрузка завершена: 6 записей.
+июн. 03, 2026 2:17:32 PM lab5.server.UdpServer run
+INFO: Сервер запущен на UDP-порту 5555.
+июн. 03, 2026 2:20:03 PM lab5.server.UdpConnectionReceiver receive
+INFO: Получен UDP-пакет от /127.0.0.1:60597, байт: 994
+июн. 03, 2026 2:20:03 PM lab5.server.RequestReader read
+INFO: Получен запрос: ADD, requestId=1
+июн. 03, 2026 2:20:03 PM lab5.server.ResponseSender send
+INFO: Ответ отправлен клиенту /127.0.0.1:60597, requestId=1
+июн. 03, 2026 2:20:28 PM lab5.server.ServerCommandProcessor saveFromServer
+INFO: Сохранение коллекции: Коллекция сохранена в файл: C:\Users\александра\Desktop\JavaLab6\data.csv
+июн. 03, 2026 2:20:36 PM lab5.server.UdpConnectionReceiver receive
+INFO: Получен UDP-пакет от /127.0.0.1:60597, байт: 310
+июн. 03, 2026 2:20:36 PM lab5.server.RequestReader read
+INFO: Получен запрос: SHOW, requestId=2
+июн. 03, 2026 2:20:36 PM lab5.server.ResponseSender send
+INFO: Ответ отправлен клиенту /127.0.0.1:60597, requestId=2
+июн. 03, 2026 2:20:47 PM lab5.server.ServerCommandProcessor saveFromServer
+INFO: Сохранение коллекции: Коллекция сохранена в файл: C:\Users\александра\Desktop\JavaLab6\data.csv
+июн. 03, 2026 2:21:12 PM lab5.server.UdpServer processConsole
+INFO: Получена команда завершения сервера из консоли.
+июн. 03, 2026 2:21:12 PM lab5.server.ServerCommandProcessor saveFromServer
+INFO: Сохранение коллекции: Коллекция сохранена в файл: C:\Users\александра\Desktop\JavaLab6\data.csv
+июн. 03, 2026 2:21:12 PM lab5.server.ServerMain main
+INFO: Сервер завершил работу.

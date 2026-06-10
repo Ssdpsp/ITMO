@@ -1,0 +1,4 @@
+id,name,coordinates_x,coordinates_y,creation_date,price,refundable,type,event_id,event_name,event_date,event_description
+1,name,0,0.0,2026-03-01T23:58:05.756424600+03:00[Europe/Moscow],1,true,,,,,
+2,name3,1,1.0,2026-03-02T00:22:03.824389800+03:00[Europe/Moscow],1,true,,,,,
+3,name3,1,1.0,2026-03-02T00:24:09.097256700+03:00[Europe/Moscow],1,true,,,,,

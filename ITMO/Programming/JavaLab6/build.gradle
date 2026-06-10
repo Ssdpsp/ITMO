@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+}
+
+group = 'lab5'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.register('clientJar', Jar) {
+    archiveFileName = 'Client.jar'
+    from sourceSets.main.output
+    manifest {
+        attributes 'Main-Class': 'lab5.client.ClientMain'
+    }
+}
+
+tasks.register('serverJar', Jar) {
+    archiveFileName = 'Server.jar'
+    from sourceSets.main.output
+    manifest {
+        attributes 'Main-Class': 'lab5.server.ServerMain'
+    }
+}
+
+tasks.named('build') {
+    dependsOn tasks.named('clientJar')
+    dependsOn tasks.named('serverJar')
+}

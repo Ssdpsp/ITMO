@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="maven-antrun-" default="main">
+  <target name="main">
+    <copy file="C:\Users\artem\OneDrive\Рабочий стол\JavaLab5\target/ticket-console-app-1.0.0-Client.jar" tofile="C:\Users\artem\OneDrive\Рабочий стол\JavaLab5\target/Client.jar" />
+    <copy file="C:\Users\artem\OneDrive\Рабочий стол\JavaLab5\target/ticket-console-app-1.0.0-Server.jar" tofile="C:\Users\artem\OneDrive\Рабочий стол\JavaLab5\target/Server.jar" />
+  </target>
+</project>
